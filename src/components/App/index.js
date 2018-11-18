@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./styles.css";
 import MovieText from "../MovieText";
 import Header from "../Header";
+import Buttons from "../Buttons";
 
 class App extends Component {
   state = {
@@ -35,6 +36,7 @@ class App extends Component {
         </aside>
         <section className="main">
           <Header />
+          <Buttons />
           <article className="results-box" />
         </section>
       </div>

@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="head">
       <span className="title">SWAPI-Box</span>
-      <button className="favorites-number">Favorites: 0</button>
+      <div className="favorites-number">Favorites: 0</div>
     </header>
   );
 };
