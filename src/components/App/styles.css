@@ -1,11 +1,11 @@
-.App {
+.app {
   border: 2px solid red;
   height: 100vh;
   width: 100vw;
   display: flex;
 }
 
-.movieScroll {
+.movie-scroll {
   border: 2px solid blue;
   width: 25vw;
   height: 100vh;
@@ -26,7 +26,7 @@
   justify-content: flex-end;
 }
 
-.resultsBox {
+.results-box {
   border: 2px solid purple;
   height: 100%;
   width: 100%;
@@ -38,7 +38,7 @@
   font-size: 40px;
 }
 
-.favoritesNumber {
+.favorites-number {
   border: 2px solid black;
   height: 40%;
   width: 15%;
