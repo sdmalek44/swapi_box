@@ -1,13 +1,22 @@
-import React from "react";
+import React, { Component } from "react";
+import "./styles.css";
 
 class Buttons extends Component {
-  render(){
-    return(){
+  render() {
+    return (
       <div className="button-box">
-        <div className="people">People</div>
-        <div className="planets">Planets</div>
-        <div className="vehicles">Vehicles</div>
+        <div className="search-button" id="people">
+          People
+        </div>
+        <div className="search-button" id="planets">
+          Planets
+        </div>
+        <div className="search-button" id="vehicles">
+          Vehicles
+        </div>
       </div>
-    }
+    );
   }
 }
+
+export default Buttons;
