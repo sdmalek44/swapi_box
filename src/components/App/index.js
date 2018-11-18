@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./styles.css";
 import MovieText from "../MovieText";
+import Header from "../Header";
 
 class App extends Component {
   state = {
@@ -33,10 +34,7 @@ class App extends Component {
           <MovieText movie={this.state.movie} />
         </aside>
         <section className="main">
-          <header className="head">
-            <span className="title">SWAPI-Box</span>
-            <button className="favorites-number">Favorites: 0</button>
-          </header>
+          <Header />
           <article className="results-box" />
         </section>
       </div>
