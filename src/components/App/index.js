@@ -3,11 +3,31 @@ import "./styles.css";
 import MovieText from "../MovieText";
 import Header from "../Header";
 import Buttons from "../Buttons";
+import ResultsContainer from "../ResultsContainer";
 
 class App extends Component {
   state = {
-    movie: {}
+    movie: {},
+    cardType: "main",
+    people: []
   };
+
+  handlePeopleClick = async event => {
+    let url = `https://swapi.co/api/${event.target.id}/`;
+    getPeopleData(url);
+  };
+
+  getPeopleData = async url => {
+    try {
+      const response = await fetch(url);
+      const peopleInfo = await response.json();
+      const people = await this.peopleExpand(peopleInfo);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  peopleExpand = async url => {};
 
   componentDidMount() {
     this.getMovieData();
@@ -37,7 +57,7 @@ class App extends Component {
         <section className="main">
           <Header />
           <Buttons />
-          <article className="results-box" />
+          <ResultsContainer people={this.state.people} />
         </section>
       </div>
     );
