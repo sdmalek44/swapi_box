@@ -7,6 +7,7 @@ import ResultsContainer from "../ResultsContainer";
 
 class App extends Component {
   state = {
+    isLoading: false,
     movie: {},
     cardType: "main",
     people: []
@@ -14,20 +15,40 @@ class App extends Component {
 
   handlePeopleClick = async event => {
     let url = `https://swapi.co/api/${event.target.id}/`;
-    getPeopleData(url);
+    this.getPeopleData(url);
+    this.setState({ cardType: "people" });
   };
 
   getPeopleData = async url => {
     try {
+      this.setState({ isLoading: true });
       const response = await fetch(url);
-      const peopleInfo = await response.json();
-      const people = await this.peopleExpand(peopleInfo);
+      const data = await response.json();
+      const people = await this.peopleExpand(data);
+      this.setState({ people });
+      await this.setState({ isLoading: false });
     } catch (error) {
       throw new Error(error.message);
     }
   };
 
-  peopleExpand = async url => {};
+  peopleExpand = async data => {
+    const peopleData = data.results.map(async person => {
+      try {
+        const speciesData = await fetch(person.species);
+        const species = await speciesData.json();
+        const homeworldData = await fetch(person.species);
+        const homeworld = await homeworldData.json();
+        person.species = species;
+        person.homeworld = homeworld;
+
+        return person;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    });
+    return Promise.all(peopleData);
+  };
 
   componentDidMount() {
     this.getMovieData();
@@ -56,7 +77,7 @@ class App extends Component {
         </aside>
         <section className="main">
           <Header />
-          <Buttons />
+          <Buttons handlePeopleClick={this.handlePeopleClick} />
           <ResultsContainer people={this.state.people} />
         </section>
       </div>
