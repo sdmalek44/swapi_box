@@ -13,10 +13,12 @@ class App extends Component {
     people: []
   };
 
-  handlePeopleClick = async event => {
+  handleButtonClick = async event => {
     let url = `https://swapi.co/api/${event.target.id}/`;
-    this.getPeopleData(url);
-    this.setState({ cardType: "people" });
+    if ("people" === event.target.id) {
+      this.getPeopleData(url);
+      this.setState({ cardType: "people" });
+    }
   };
 
   getPeopleData = async url => {
@@ -80,7 +82,7 @@ class App extends Component {
         </aside>
         <section className="main">
           <Header />
-          <Buttons handlePeopleClick={this.handlePeopleClick} />
+          <Buttons handlePeopleClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
             cardType={this.state.cardType}
