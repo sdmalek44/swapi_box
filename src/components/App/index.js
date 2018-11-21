@@ -40,7 +40,7 @@ class App extends Component {
       try {
         const speciesData = await fetch(person.species);
         const species = await speciesData.json();
-        const homeworldData = await fetch(person.species);
+        const homeworldData = await fetch(person.homeworld);
         const homeworld = await homeworldData.json();
         person.species = species;
         person.homeworld = homeworld;
@@ -81,7 +81,10 @@ class App extends Component {
         <section className="main">
           <Header />
           <Buttons handlePeopleClick={this.handlePeopleClick} />
-          <ResultsContainer people={this.state.people} />
+          <ResultsContainer
+            people={this.state.people}
+            cardType={this.state.cardType}
+          />
         </section>
       </div>
     );
