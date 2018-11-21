@@ -82,7 +82,7 @@ class App extends Component {
         </aside>
         <section className="main">
           <Header />
-          <Buttons handlePeopleClick={this.handleButtonClick} />
+          <Buttons handleButtonClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
             cardType={this.state.cardType}

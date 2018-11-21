@@ -1,14 +1,14 @@
 import React from "react";
 import "./styles.css";
 
-const Buttons = ({ handlePeopleClick }) => {
+const Buttons = ({ handleButtonClick }) => {
   return (
     <div className="button-box">
       <div
         className="search-button"
         id="people"
         onClick={event => {
-          handlePeopleClick(event);
+          handleButtonClick(event);
         }}
       >
         People
