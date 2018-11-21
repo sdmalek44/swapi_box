@@ -20,6 +20,9 @@ class App extends Component {
   };
 
   getPeopleData = async url => {
+    if (this.state.people.length > 0) {
+      return;
+    }
     try {
       this.setState({ isLoading: true });
       const response = await fetch(url);
