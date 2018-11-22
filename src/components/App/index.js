@@ -12,7 +12,9 @@ class App extends Component {
     cardType: "main",
     people: [],
     planets: [],
-    vehicles: []
+    vehicles: [],
+    favorites: [],
+    numOfFavs: 0
   };
 
   handleButtonClick = async event => {
@@ -114,6 +116,14 @@ class App extends Component {
     );
   };
 
+  favButtonClick = async props => {
+    this.state.favorites.push(props);
+    const favorites = this.state.favorites;
+    const numOfFavs = favorites.length;
+    this.setState({ favorites });
+    this.setState({ numOfFavs });
+  };
+
   componentDidMount() {
     this.getMovieData();
   }
@@ -140,13 +150,14 @@ class App extends Component {
           <MovieText movie={this.state.movie} />
         </aside>
         <section className="main">
-          <Header />
+          <Header numOfFavs={this.state.numOfFavs} />
           <Buttons handleButtonClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
             planets={this.state.planets}
             vehicles={this.state.vehicles}
             cardType={this.state.cardType}
+            favButtonClick={this.favButtonClick}
           />
         </section>
       </div>
