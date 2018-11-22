@@ -10,21 +10,36 @@ class App extends Component {
     isLoading: false,
     movie: {},
     cardType: "main",
-    people: []
+    people: [],
+    planets: []
   };
 
   handleButtonClick = async event => {
     let url = `https://swapi.co/api/${event.target.id}/`;
-    if ("people" === event.target.id) {
+    if (event.target.id === "people") {
       this.getPeopleData(url);
-      this.setState({ cardType: "people" });
+    } else if (event.target.id === "planets") {
+      this.getPlanetsData(url);
+    }
+    this.setState({ cardType: event.target.id });
+  };
+
+  getPlanetsData = async url => {
+    if (this.state.planets.length > 0) return;
+    try {
+      this.setState({ isLoading: true });
+      const response = await fetch(url);
+      const data = await response.json();
+      const planets = await this.planetsExpand(data);
+      this.setState({ planets });
+      await this.setState({ isLoading: false });
+    } catch (error) {
+      throw new Error(error.message);
     }
   };
 
   getPeopleData = async url => {
-    if (this.state.people.length > 0) {
-      return;
-    }
+    if (this.state.people.length > 0) return;
     try {
       this.setState({ isLoading: true });
       const response = await fetch(url);
