@@ -1,40 +1,52 @@
 import React from "react";
 
 const Card = props => {
-  let attributes = [];
-  if (props.cardType === "people") {
-    attributes = [
+  const personAttributes = props => {
+    return [
       `Name: ${props.name}`,
       `Species: ${props.species.name}`,
       `Homeworld: ${props.homeworld.name}`,
       `Population: ${props.homeworld.population}`
     ];
-  } else if (props.cardType === "planets") {
-    attributes = [
+  };
+
+  const planetAttributes = props => {
+    return [
       `Name: ${props.name}`,
       `Terrain: ${props.terrain}`,
       `Population: ${props.population}`,
       `Climate: ${props.climate}`,
       `Residents: ${props.residents.join(", ")}`
     ];
-  } else if (props.cardType === "vehicles") {
-    attributes = [
+  };
+
+  const vehicleAttributes = props => {
+    return [
       `Name: ${props.name}`,
       `Model: ${props.model}`,
       `Class: ${props.vehicle_class}`,
       `Passengers: ${props.passengers}`
     ];
-  }
+  };
 
-  const cardAttributes = attributes.map((attribute, index) => {
-    return (
-      <div className="item-attr" key={index}>
-        {attribute}
-      </div>
-    );
-  });
+  const cardAttributes = attributes => {
+    return attributes.map((attribute, index) => {
+      return (
+        <div className="item-attr" key={index}>
+          {attribute}
+        </div>
+      );
+    });
+  };
 
-  return <div className="card">{cardAttributes}</div>;
+  return (
+    <div className="card">
+      {props.cardType === "people" && cardAttributes(personAttributes(props))}
+      {props.cardType === "planets" && cardAttributes(planetAttributes(props))}
+      {props.cardType === "vehicles" &&
+        cardAttributes(vehicleAttributes(props))}
+    </div>
+  );
 };
 
 export default Card;
