@@ -17,6 +17,13 @@ const Card = props => {
       `Climate: ${props.climate}`,
       `Residents: ${props.residents.join(", ")}`
     ];
+  } else if (props.cardType === "vehicles") {
+    item = [
+      `Name: ${props.name}`,
+      `Model: ${props.model}`,
+      `Class: ${props.vehicle_class}`,
+      `Passengers: ${props.passengers}`
+    ];
   }
 
   const attributes = item.map((attr, i) => {
