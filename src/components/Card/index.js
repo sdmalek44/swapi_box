@@ -1,16 +1,16 @@
 import React from "react";
 
 const Card = props => {
-  let item = [];
+  let attributes = [];
   if (props.cardType === "people") {
-    item = [
+    attributes = [
       `Name: ${props.name}`,
       `Species: ${props.species.name}`,
       `Homeworld: ${props.homeworld.name}`,
       `Population: ${props.homeworld.population}`
     ];
   } else if (props.cardType === "planets") {
-    item = [
+    attributes = [
       `Name: ${props.name}`,
       `Terrain: ${props.terrain}`,
       `Population: ${props.population}`,
@@ -18,7 +18,7 @@ const Card = props => {
       `Residents: ${props.residents.join(", ")}`
     ];
   } else if (props.cardType === "vehicles") {
-    item = [
+    attributes = [
       `Name: ${props.name}`,
       `Model: ${props.model}`,
       `Class: ${props.vehicle_class}`,
@@ -26,11 +26,15 @@ const Card = props => {
     ];
   }
 
-  const attributes = item.map((attr, i) => {
-    return <div className="item-attr">{attr}</div>;
+  const cardAttributes = attributes.map((attribute, index) => {
+    return (
+      <div className="item-attr" key={index}>
+        {attribute}
+      </div>
+    );
   });
 
-  return <div className="card">{attributes}</div>;
+  return <div className="card">{cardAttributes}</div>;
 };
 
 export default Card;

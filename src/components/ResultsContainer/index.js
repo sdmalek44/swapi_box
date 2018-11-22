@@ -4,15 +4,15 @@ import Card from "../Card";
 
 const ResultsContainer = ({ vehicles, planets, people, cardType }) => {
   const peopleCards = people.map((person, index) => {
-    return <Card {...person} cardType={cardType} />;
+    return <Card {...person} cardType={cardType} key={index} />;
   });
 
   const planetCards = planets.map((planet, index) => {
-    return <Card {...planet} cardType={cardType} />;
+    return <Card {...planet} cardType={cardType} key={index} />;
   });
 
   const vehicleCards = vehicles.map((vehicle, index) => {
-    return <Card {...vehicle} cardType={cardType} />;
+    return <Card {...vehicle} cardType={cardType} key={index} />;
   });
 
   return (
