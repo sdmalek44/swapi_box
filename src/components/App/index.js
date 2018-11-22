@@ -53,48 +53,48 @@ class App extends Component {
   };
 
   planetsExpand = async data => {
-    const planetsData = data.results.map(async planet => {
-      try {
-        this.setState({ isLoading: true });
-        const residents = this.residentsExpand(planet.residents);
-        planet.residents = residents;
-        return planet;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    });
-    return Promise.all(planetsData);
+    return Promise.all(
+      data.results.map(async planet => {
+        try {
+          this.setState({ isLoading: true });
+          const residents = await this.residentsExpand(planet.residents);
+          planet.residents = residents;
+          return planet;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      })
+    );
   };
 
   residentsExpand = residentsData => {
-    const residents = residentsData.map(async url => {
-      try {
-        const data = await fetch(url);
-        const resident = await data.json();
-        return resident.name;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    });
-    return Promise.all(residents);
+    return Promise.all(
+      residentsData.map(async url => {
+        try {
+          const data = await fetch(url);
+          const resident = await data.json();
+          return resident.name;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      })
+    );
   };
 
   peopleExpand = async data => {
-    const peopleData = data.results.map(async person => {
-      try {
-        const speciesData = await fetch(person.species);
-        const species = await speciesData.json();
-        const homeworldData = await fetch(person.homeworld);
-        const homeworld = await homeworldData.json();
-        person.species = species;
-        person.homeworld = homeworld;
-
-        return person;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    });
-    return Promise.all(peopleData);
+    return Promise.all(
+      data.results.map(async person => {
+        try {
+          const speciesData = await fetch(person.species);
+          person.species = await speciesData.json();
+          const homeworldData = await fetch(person.homeworld);
+          person.homeworld = await homeworldData.json();
+          return person;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      })
+    );
   };
 
   componentDidMount() {
