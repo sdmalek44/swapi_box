@@ -10,19 +10,36 @@ class App extends Component {
     isLoading: false,
     movie: {},
     cardType: "main",
-    people: []
+    people: [],
+    planets: []
   };
 
-  handlePeopleClick = async event => {
+  handleButtonClick = async event => {
     let url = `https://swapi.co/api/${event.target.id}/`;
-    this.getPeopleData(url);
-    this.setState({ cardType: "people" });
+    if (event.target.id === "people") {
+      this.getPeopleData(url);
+    } else if (event.target.id === "planets") {
+      this.getPlanetsData(url);
+    }
+    this.setState({ cardType: event.target.id });
+  };
+
+  getPlanetsData = async url => {
+    if (this.state.planets.length > 0) return;
+    try {
+      this.setState({ isLoading: true });
+      const response = await fetch(url);
+      const data = await response.json();
+      const planets = await this.planetsExpand(data);
+      this.setState({ planets });
+      await this.setState({ isLoading: false });
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   getPeopleData = async url => {
-    if (this.state.people.length > 0) {
-      return;
-    }
+    if (this.state.people.length > 0) return;
     try {
       this.setState({ isLoading: true });
       const response = await fetch(url);
@@ -35,22 +52,49 @@ class App extends Component {
     }
   };
 
-  peopleExpand = async data => {
-    const peopleData = data.results.map(async person => {
-      try {
-        const speciesData = await fetch(person.species);
-        const species = await speciesData.json();
-        const homeworldData = await fetch(person.homeworld);
-        const homeworld = await homeworldData.json();
-        person.species = species;
-        person.homeworld = homeworld;
+  planetsExpand = async data => {
+    return Promise.all(
+      data.results.map(async planet => {
+        try {
+          this.setState({ isLoading: true });
+          const residents = await this.residentsExpand(planet.residents);
+          planet.residents = residents;
+          return planet;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      })
+    );
+  };
 
-        return person;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    });
-    return Promise.all(peopleData);
+  residentsExpand = residentsData => {
+    return Promise.all(
+      residentsData.map(async url => {
+        try {
+          const data = await fetch(url);
+          const resident = await data.json();
+          return resident.name;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      })
+    );
+  };
+
+  peopleExpand = async data => {
+    return Promise.all(
+      data.results.map(async person => {
+        try {
+          const speciesData = await fetch(person.species);
+          person.species = await speciesData.json();
+          const homeworldData = await fetch(person.homeworld);
+          person.homeworld = await homeworldData.json();
+          return person;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      })
+    );
   };
 
   componentDidMount() {
@@ -80,9 +124,10 @@ class App extends Component {
         </aside>
         <section className="main">
           <Header />
-          <Buttons handlePeopleClick={this.handlePeopleClick} />
+          <Buttons handleButtonClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
+            planets={this.state.planets}
             cardType={this.state.cardType}
           />
         </section>
