@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import Card from "../Card";
 
-const ResultsContainer = ({ planets, people, cardType }) => {
+const ResultsContainer = ({ vehicles, planets, people, cardType }) => {
   const peopleCards = people.map((person, index) => {
     return <Card {...person} cardType={cardType} />;
   });
@@ -11,10 +11,15 @@ const ResultsContainer = ({ planets, people, cardType }) => {
     return <Card {...planet} cardType={cardType} />;
   });
 
+  const vehicleCards = vehicles.map((vehicle, index) => {
+    return <Card {...vehicle} cardType={cardType} />;
+  });
+
   return (
     <div className="results-box">
       {cardType === "people" && peopleCards}
       {cardType === "planets" && planetCards}
+      {cardType === "vehicles" && vehicleCards}
     </div>
   );
 };
