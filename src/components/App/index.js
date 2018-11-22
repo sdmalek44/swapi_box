@@ -11,7 +11,8 @@ class App extends Component {
     movie: {},
     cardType: "main",
     people: [],
-    planets: []
+    planets: [],
+    vehicles: []
   };
 
   handleButtonClick = async event => {
@@ -20,8 +21,24 @@ class App extends Component {
       this.getPeopleData(url);
     } else if (event.target.id === "planets") {
       this.getPlanetsData(url);
+    } else if (event.target.id === "vehicles") {
+      this.getVehiclesData(url);
     }
     this.setState({ cardType: event.target.id });
+  };
+
+  getVehiclesData = async url => {
+    if (this.state.vehicles.length > 0) return;
+    try {
+      this.setState({ isLoading: true });
+      const response = await fetch(url);
+      const data = await response.json();
+      const vehicles = data.results;
+      this.setState({ vehicles });
+      await this.setState({ isLoading: true });
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   getPlanetsData = async url => {
@@ -128,6 +145,7 @@ class App extends Component {
           <ResultsContainer
             people={this.state.people}
             planets={this.state.planets}
+            vehicles={this.state.vehicles}
             cardType={this.state.cardType}
           />
         </section>

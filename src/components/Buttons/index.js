@@ -22,7 +22,13 @@ const Buttons = ({ handleButtonClick }) => {
       >
         Planets
       </div>
-      <div className="search-button" id="vehicles">
+      <div
+        className="search-button"
+        id="vehicles"
+        onClick={event => {
+          handleButtonClick(event);
+        }}
+      >
         Vehicles
       </div>
     </div>
