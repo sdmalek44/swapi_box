@@ -52,6 +52,33 @@ class App extends Component {
     }
   };
 
+  planetsExpand = async data => {
+    const planetsData = data.results.map(async planet => {
+      try {
+        this.setState({ isLoading: true });
+        const residents = this.residentsExpand(planet.residents);
+        planet.residents = residents;
+        return planet;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    });
+    return Promise.all(planetsData);
+  };
+
+  residentsExpand = residentsData => {
+    const residents = residentsData.map(async url => {
+      try {
+        const data = await fetch(url);
+        const resident = await data.json();
+        return resident.name;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    });
+    return Promise.all(residents);
+  };
+
   peopleExpand = async data => {
     const peopleData = data.results.map(async person => {
       try {
