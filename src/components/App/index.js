@@ -127,6 +127,7 @@ class App extends Component {
           <Buttons handleButtonClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
+            planets={this.state.planets}
             cardType={this.state.cardType}
           />
         </section>
