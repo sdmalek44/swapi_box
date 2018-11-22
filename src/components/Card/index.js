@@ -45,6 +45,7 @@ const Card = props => {
       {props.cardType === "planets" && cardAttributes(planetAttributes(props))}
       {props.cardType === "vehicles" &&
         cardAttributes(vehicleAttributes(props))}
+      <div onClick={() => props.favButtonClick(props)}>Add Favorite</div>
     </div>
   );
 };
