@@ -6,6 +6,7 @@ const ResultsContainer = ({
   vehicles,
   planets,
   people,
+  favorites,
   cardType,
   favButtonClick
 }) => {
@@ -45,11 +46,24 @@ const ResultsContainer = ({
     );
   });
 
+  const favoriteCards = favorites.map((favorite, index) => {
+    return (
+      <Card
+        {...favorite}
+        cardType={favorite.cardType}
+        key={index}
+        id={index}
+        favButtonClick={favButtonClick}
+      />
+    );
+  });
+
   return (
     <div className="results-box">
       {cardType === "people" && peopleCards}
       {cardType === "planets" && planetCards}
       {cardType === "vehicles" && vehicleCards}
+      {cardType === "favorites" && favoriteCards}
     </div>
   );
 };

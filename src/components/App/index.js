@@ -156,12 +156,16 @@ class App extends Component {
           <MovieText movie={this.state.movie} />
         </aside>
         <section className="main">
-          <Header numOfFavs={this.state.numOfFavs} />
+          <Header
+            numOfFavs={this.state.numOfFavs}
+            handleButtonClick={this.handleButtonClick}
+          />
           <Buttons handleButtonClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
             planets={this.state.planets}
             vehicles={this.state.vehicles}
+            favorites={this.state.favorites}
             cardType={this.state.cardType}
             favButtonClick={this.favButtonClick}
           />
