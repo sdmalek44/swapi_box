@@ -8,13 +8,15 @@ const ResultsContainer = ({
   people,
   favorites,
   cardType,
-  favButtonClick
+  favButtonClick,
+  evaluateClass
 }) => {
   const peopleCards = people.map((person, index) => {
     return (
       <Card
         {...person}
         favButtonClick={favButtonClick}
+        evaluateClass={evaluateClass}
         cardType={cardType}
         key={index}
         id={index}
@@ -27,6 +29,7 @@ const ResultsContainer = ({
       <Card
         {...planet}
         cardType={cardType}
+        evaluateClass={evaluateClass}
         key={index}
         id={index}
         favButtonClick={favButtonClick}
@@ -39,6 +42,7 @@ const ResultsContainer = ({
       <Card
         {...vehicle}
         cardType={cardType}
+        evaluateClass={evaluateClass}
         key={index}
         id={index}
         favButtonClick={favButtonClick}
@@ -51,6 +55,7 @@ const ResultsContainer = ({
       <Card
         {...favorite}
         cardType={favorite.cardType}
+        evaluateClass={evaluateClass}
         key={index}
         id={index}
         favButtonClick={favButtonClick}

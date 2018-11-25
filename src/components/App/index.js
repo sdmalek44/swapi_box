@@ -149,6 +149,15 @@ class App extends Component {
     }
   };
 
+  evaluateClass = card => {
+    let newClass = "fav-button";
+    let favoriteNames = this.state.favorites.map(favorite => favorite.name);
+
+    if (favoriteNames.includes(card.name)) newClass += " clicked";
+
+    return newClass;
+  };
+
   render() {
     return (
       <div className="app">
@@ -168,6 +177,7 @@ class App extends Component {
             favorites={this.state.favorites}
             cardType={this.state.cardType}
             favButtonClick={this.favButtonClick}
+            evaluateClass={this.evaluateClass}
           />
         </section>
       </div>

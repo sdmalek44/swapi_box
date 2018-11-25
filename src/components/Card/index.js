@@ -42,7 +42,10 @@ const Card = props => {
 
   return (
     <div className="card">
-      <div className="fav-button" onClick={() => props.favButtonClick(props)}>
+      <div
+        className={props.evaluateClass(props)}
+        onClick={() => props.favButtonClick(props)}
+      >
         Favorite
       </div>
       <div className="bottom-card">
