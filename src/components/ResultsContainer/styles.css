@@ -1,5 +1,8 @@
 .results-box {
-  border: 2px solid purple;
   width: 100%;
   height: auto;
+  display: flex;
+  height: 80vh;
+  flex-wrap: wrap;
+  justify-content: center;
 }

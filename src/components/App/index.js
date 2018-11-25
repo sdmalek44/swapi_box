@@ -116,12 +116,18 @@ class App extends Component {
     );
   };
 
-  favButtonClick = async props => {
-    this.state.favorites.push(props);
-    const favorites = this.state.favorites;
-    const numOfFavs = favorites.length;
-    this.setState({ favorites });
-    this.setState({ numOfFavs });
+  favButtonClick = newFav => {
+    let favorites;
+    let favoriteNames = this.state.favorites.map(favorite => favorite.name);
+
+    if (favoriteNames.includes(newFav.name)) {
+      favorites = this.state.favorites.filter(fav => newFav.name !== fav.name);
+    } else {
+      this.state.favorites.push(newFav);
+      favorites = this.state.favorites;
+    }
+    let numOfFavs = favorites.length;
+    this.setState({ favorites, numOfFavs });
   };
 
   componentDidMount() {
@@ -143,6 +149,15 @@ class App extends Component {
     }
   };
 
+  evaluateClass = card => {
+    let newClass = "fav-button";
+    let favoriteNames = this.state.favorites.map(favorite => favorite.name);
+
+    if (favoriteNames.includes(card.name)) newClass += " clicked";
+
+    return newClass;
+  };
+
   render() {
     return (
       <div className="app">
@@ -150,14 +165,19 @@ class App extends Component {
           <MovieText movie={this.state.movie} />
         </aside>
         <section className="main">
-          <Header numOfFavs={this.state.numOfFavs} />
+          <Header
+            numOfFavs={this.state.numOfFavs}
+            handleButtonClick={this.handleButtonClick}
+          />
           <Buttons handleButtonClick={this.handleButtonClick} />
           <ResultsContainer
             people={this.state.people}
             planets={this.state.planets}
             vehicles={this.state.vehicles}
+            favorites={this.state.favorites}
             cardType={this.state.cardType}
             favButtonClick={this.favButtonClick}
+            evaluateClass={this.evaluateClass}
           />
         </section>
       </div>
