@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles.css";
 
 const Card = props => {
   const personAttributes = props => {
@@ -41,11 +42,16 @@ const Card = props => {
 
   return (
     <div className="card">
-      {props.cardType === "people" && cardAttributes(personAttributes(props))}
-      {props.cardType === "planets" && cardAttributes(planetAttributes(props))}
-      {props.cardType === "vehicles" &&
-        cardAttributes(vehicleAttributes(props))}
-      <div onClick={() => props.favButtonClick(props)}>Add Favorite</div>
+      <div className="fav-button" onClick={() => props.favButtonClick(props)}>
+        Favorite
+      </div>
+      <div className="bottom-card">
+        {props.cardType === "people" && cardAttributes(personAttributes(props))}
+        {props.cardType === "planets" &&
+          cardAttributes(planetAttributes(props))}
+        {props.cardType === "vehicles" &&
+          cardAttributes(vehicleAttributes(props))}
+      </div>
     </div>
   );
 };
