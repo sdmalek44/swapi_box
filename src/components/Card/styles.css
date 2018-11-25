@@ -22,12 +22,14 @@
 .bottom-card {
   height: 85%;
   width: 100%;
-  font-size: 13px;
+  font-size: 15px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  justify-content: space-around;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .item-attr {
-  margin-bottom: 10px;
 }
