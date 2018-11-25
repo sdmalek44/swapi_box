@@ -116,12 +116,18 @@ class App extends Component {
     );
   };
 
-  favButtonClick = async props => {
-    this.state.favorites.push(props);
-    const favorites = this.state.favorites;
-    const numOfFavs = favorites.length;
-    this.setState({ favorites });
-    this.setState({ numOfFavs });
+  favButtonClick = newFav => {
+    let favorites;
+    let favoriteNames = this.state.favorites.map(favorite => favorite.name);
+
+    if (favoriteNames.includes(newFav.name)) {
+      favorites = this.state.favorites.filter(fav => newFav.name !== fav.name);
+    } else {
+      this.state.favorites.push(newFav);
+      favorites = this.state.favorites;
+    }
+    let numOfFavs = favorites.length;
+    this.setState({ favorites, numOfFavs });
   };
 
   componentDidMount() {
